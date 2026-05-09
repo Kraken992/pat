@@ -1,0 +1,27 @@
+# Логи
+*.log
+*.log.*
+
+# Ключи и чувствительные данные
+keys/
+*.keys
+keys.log
+config.json
+
+# Временные файлы
+*.tmp
+*.bak
+*.swp
+
+# Сертификаты
+*.pem
+*.crt
+*.key
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# sing-box runtime
+sing-box
+*.db

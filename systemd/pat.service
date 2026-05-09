@@ -1,0 +1,18 @@
+[Unit]
+Description=Phantom Adaptive Tunnel (PAT) - Kraken992
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/sing-box run -c /etc/sing-box/config.json
+Restart=always
+RestartSec=3
+LimitNOFILE=1048576
+LimitNPROC=512
+StandardOutput=append:/var/log/sing-box/pat.log
+StandardError=append:/var/log/sing-box/pat-error.log
+
+[Install]
+WantedBy=multi-user.target

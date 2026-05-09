@@ -15,4 +15,4 @@
 ## Быстрая установка
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/Kraken992/phantom-adaptive-tunnel/main/setup.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/Kraken992/pat/main/setup.sh)

@@ -1,0 +1,72 @@
+{
+  "log": {
+    "level": "warn",
+    "timestamp": true,
+    "output": "/var/log/sing-box/pat.log"
+  },
+  "inbounds": [
+    {
+      "type": "hysteria2",
+      "tag": "hy2-primary",
+      "listen": "::",
+      "listen_port": 443,
+      "users": [
+        {
+          "password": "YOUR_HY2_PASS"
+        }
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "www.microsoft.com",
+        "certificate": "/etc/sing-box/cert.pem",
+        "key": "/etc/sing-box/key.pem"
+      },
+      "masquerade": "https://www.microsoft.com",
+      "up_mbps": 150,
+      "down_mbps": 150
+    },
+    {
+      "type": "vless",
+      "tag": "reality-fallback",
+      "listen": "::",
+      "listen_port": 8443,
+      "users": [
+        {
+          "uuid": "YOUR_UUID",
+          "flow": "xtls-rprx-vision"
+        }
+      ],
+      "tls": {
+        "enabled": true,
+        "reality": {
+          "enabled": true,
+          "private_key": "YOUR_PRIVATE_KEY",
+          "short_id": ["a1b2c3d4", "e5f6g7h8"],
+          "handshake": {
+            "server": "www.microsoft.com",
+            "server_port": 443
+          }
+        }
+      },
+      "transport": {
+        "type": "xhttp",
+        "host": "www.microsoft.com",
+        "path": "/api/v2"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "inbound": ["hy2-primary", "reality-fallback"],
+        "outbound": "direct"
+      }
+    ]
+  }
+}
